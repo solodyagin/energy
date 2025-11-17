@@ -16,6 +16,7 @@ const (
 	ENERGY               = "energy"
 	DomainYangHY         = "https://energy.yanghy.cn"
 	DomainGithub         = "https://energye.github.io"
+	DomainGitee          = "https://energye.gitee.io"
 	BASE_CONFIG_URL      = "/data/model-base-config.json"
 	LATEST_VERSION_URL   = "/data/latest-version.json"
 	CMD_VERSION_URL      = "/data/command-line-tools.json"

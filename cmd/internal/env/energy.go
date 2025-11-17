@@ -74,7 +74,7 @@ func InitDevEnvConfig(wd string) {
 			// 创建
 			GlobalDevEnvConfig = &EnergyConfig{
 				homedir:  config,
-				Registry: consts.DomainYangHY,
+				Registry: consts.DomainGitee,
 				Root:     wd,
 			}
 			GlobalDevEnvConfig.Update()
@@ -94,7 +94,7 @@ func InitDevEnvConfig(wd string) {
 				return
 			}
 			if strings.TrimSpace(GlobalDevEnvConfig.Registry) == "" {
-				GlobalDevEnvConfig.Registry = consts.DomainYangHY
+				GlobalDevEnvConfig.Registry = consts.DomainGitee
 				GlobalDevEnvConfig.Update()
 			}
 			if strings.TrimSpace(GlobalDevEnvConfig.Root) == "" {
