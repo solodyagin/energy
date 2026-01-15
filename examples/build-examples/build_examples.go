@@ -2,14 +2,14 @@ package main
 
 import (
 	"fmt"
-	"github.com/energye/energy/v2/consts"
-	"github.com/energye/energy/v2/examples/build-examples/syso"
-	"github.com/energye/golcl/tools/command"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"runtime"
 	"strings"
+
+	"github.com/energye/energy/v2/consts"
+	"github.com/energye/energy/v2/examples/build-examples/syso"
+	"github.com/energye/golcl/tools/command"
 )
 
 const (
@@ -20,12 +20,12 @@ const (
 
 func main() {
 	wd := consts.CurrentExecuteDir
-	spDir := strings.Index(wd, "example")
+	spDir := strings.Index(wd, "examples")
 	if spDir > 0 {
 		wd = wd[:spDir]
 	}
 	println("current:", wd)
-	dist := filepath.Join(wd, "example", "dist")
+	dist := filepath.Join(wd, "examples", "dist")
 	if !isExist(dist) {
 		os.MkdirAll(dist, os.ModePerm)
 	}
@@ -57,7 +57,7 @@ func main() {
 	}
 	cmd := command.NewCMD()
 	for i, example := range examples {
-		dir := filepath.Join(wd, "example", example)
+		dir := filepath.Join(wd, "examples", example)
 		if isExist(dir) {
 			cmd.Dir = dir
 			copySyso(dir)
@@ -89,9 +89,10 @@ func isExist(path string) bool {
 }
 
 func sysoname() string {
-	if runtime.GOARCH == "amd64" {
+	switch runtime.GOARCH {
+	case "amd64":
 		return "example_windows_amd64.syso"
-	} else if runtime.GOARCH == "386" {
+	case "386":
 		return "example_windows_386.syso"
 	}
 	return ""
@@ -103,10 +104,11 @@ func copySyso(dir string) {
 	}
 	if sysoname() != "" {
 		out := filepath.Join(dir, sysoname())
-		if runtime.GOARCH == "amd64" {
-			ioutil.WriteFile(out, syso.SysoBytesx64, 0666)
-		} else if runtime.GOARCH == "386" {
-			ioutil.WriteFile(out, syso.SysoBytes386, 0666)
+		switch runtime.GOARCH {
+		case "amd64":
+			os.WriteFile(out, syso.SysoBytesx64, 0666)
+		case "386":
+			os.WriteFile(out, syso.SysoBytes386, 0666)
 		}
 	}
 }
@@ -117,9 +119,10 @@ func removeSyso(dir string) {
 	}
 	if sysoname() != "" {
 		file := filepath.Join(dir, sysoname())
-		if runtime.GOARCH == "amd64" {
+		switch runtime.GOARCH {
+		case "amd64":
 			os.Remove(file)
-		} else if runtime.GOARCH == "386" {
+		case "386":
 			os.Remove(file)
 		}
 	}
